@@ -139,7 +139,7 @@ class ArgoversePreprocessor(Preprocessor):
         # get the target candidates and candidate gt
         agt_traj_obs = data['trajs'][0][0: self.obs_horizon].copy().astype(np.float32)
         agt_traj_fut = data['trajs'][0][self.obs_horizon:self.obs_horizon+self.pred_horizon].copy().astype(np.float32)
-        ctr_line_candts = self.am.get_candidate_centerlines_for_traj(agt_traj_obs, data['city'])
+        ctr_line_candts = self.am.get_candidate_centerlines_for_traj(agt_traj_obs, data['city']) #我修改了这个函数的源码。。。让他能返回id
 
         # rotate the center lines and find the reference center line
         agt_traj_fut = np.matmul(rot, (agt_traj_fut - orig.reshape(-1, 2)).T).T

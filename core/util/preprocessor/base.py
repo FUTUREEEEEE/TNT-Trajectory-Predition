@@ -80,8 +80,12 @@ class Preprocessor(Dataset):
         else:
             dir_ = os.path.join(dir_, self.split + "_intermediate", "raw")
 
-        if not os.path.exists(dir_):
-            os.makedirs(dir_)
+        # if not os.path.exists(dir_):
+        #     os.makedirs(dir_)
+        try:
+            os.mkdir(dir_)
+        except OSError:
+            pass
 
         fname = f"features_{file_name}.pkl"
         dataframe.to_pickle(os.path.join(dir_, fname))

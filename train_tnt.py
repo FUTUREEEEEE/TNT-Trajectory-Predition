@@ -7,6 +7,7 @@ import argparse
 
 from core.dataloader.argoverse_loader import Argoverse, GraphData, ArgoverseInMem
 from core.dataloader.argoverse_loader_v2 import ArgoverseInMem as ArgoverseInMemv2
+from core.dataloader.argoverse_loader_v2 import ArgoverseInDisk
 from core.trainer.tnt_trainer import TNTTrainer
 
 sys.path.append("core/dataloader")
@@ -18,8 +19,8 @@ def train(gpu, args):
     :param args:
     :return:
     """
-    train_set = ArgoverseInMemv2(pjoin(args.data_root, "train_intermediate")).shuffle()
-    eval_set = ArgoverseInMemv2(pjoin(args.data_root, "val_intermediate"))
+    train_set = ArgoverseInDisk(pjoin(args.data_root, "train_intermediate")).shuffle()
+    eval_set = ArgoverseInDisk(pjoin(args.data_root, "val_intermediate"))
 
     # init output dir
     time_stamp = datetime.now().strftime("%m-%d-%H-%M")
@@ -92,7 +93,7 @@ if __name__ == "__main__":
                         help="number of batch_size")
     parser.add_argument("-e", "--n_epoch", type=int, default=50,
                         help="number of epochs")
-    parser.add_argument("-w", "--num_workers", type=int, default=16,
+    parser.add_argument("-w", "--num_workers", type=int, default=4,
                         help="dataloader worker size")
 
     parser.add_argument("-c", "--with_cuda", action="store_true", default=False,

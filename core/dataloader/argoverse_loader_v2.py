@@ -44,7 +44,7 @@ class GraphData(Data):
     override key `cluster` indicating which polyline_id is for the vector
     """
 
-    def __inc__(self, key, value):
+    def __inc__(self, key, value,*args):
         if key == 'edge_index':
             return self.x.size(0)
         elif key == 'cluster':
@@ -219,8 +219,9 @@ class ArgoverseInMem(InMemoryDataset):
 class ArgoverseInDisk(Dataset):
     def __init__(self, root, transform=None, pre_transform=None):
         super(ArgoverseInDisk, self).__init__(root, transform, pre_transform)
-        self.data, self.slices = torch.load(self.processed_paths[0])
+        #self.data,self.slices= torch.load(self.processed_paths[0]) #, self.slices
         gc.collect()
+        print("using inDisk loader")
 
     @property
     def raw_file_names(self):

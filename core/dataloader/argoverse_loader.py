@@ -23,7 +23,7 @@ class GraphData(Data):
     override key `cluster` indicating which polyline_id is for the vector
     """
 
-    def __inc__(self, key, value):
+    def __inc__(self, key, value,*args):
         if key == 'edge_index':
             return self.x.size(0)
         elif key == 'cluster':
